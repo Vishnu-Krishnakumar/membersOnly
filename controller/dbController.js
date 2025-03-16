@@ -1,6 +1,7 @@
 const {Router} = require("express");
 const db = require("../db/queries");
 const { body, validationResult } = require("express-validator");
+const bcrypt  = require("bcryptjs");
 
 async function signUp (req,res) {
     res.render("sign-up",{
@@ -16,13 +17,23 @@ async function register (req,res){
        errors:errors.array(),
     });
   }
-  const firstName = req.body.firstname;
-  const lastName = req.body.lastname;
-  const password = req.body.password;
-  const email = req.body.email;
-  res.render("log-in",{
-    errors:[]
-  });
+  try{
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const user ={
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      hashedPassword: hashedPassword,
+    };
+    db.createUser(user);
+  
+    res.render("log-in",{
+      errors:[]
+    });
+  }catch(error){
+    console.error(error);
+    next(error);
+  }
 }
 
 async function logIn(req,res){
