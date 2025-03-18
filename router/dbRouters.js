@@ -17,4 +17,6 @@ dbRouters.get("/log-out",(req,res,next)=>{
 dbRouters.post("/logIn",auth.passport.authenticate('local',{failureRedirect:"/log"}),dbController.logIn);
 dbRouters.post("/register",validatation.validateUser,dbController.register);
 dbRouters.post("/join", dbController.join);
+dbRouters.post("/postMessage",dbController.messagePost);
+dbRouters.post("/delete",dbController.messageDelete);
 module.exports = dbRouters

@@ -8,21 +8,41 @@
 </head>
 <body>
   <h1>Hello <%= user.firstname + " " + user.lastname %>! </h1>
-  <form action  = "/join" method = "POST">
+  <form class = "clubForm"action ="/join" method = "POST">
     <label for = "secret">Secret passcode!</label>
     <input id = "secret" name = "secret" placeholder="secret password!" type ="text"/>
     <input type = "hidden" id = "id" name = "id" value = <%= user.id %> />
     <button type = "submit">Join the club!</button>
   </form>
+
   <div class = "messages">
     <% messages.map((message)=>{ %>
       <form class = "message" action ="/delete" method ="POST">
-        <label for = "firstname"><%= message.firstname %></label>
+        <% if (user.member){ %>
+          <label for = "firstname"><%= message.firstname %></label>
+        <% }%>
         <label for = "title"><%= message.title %></label>
         <label for = "message"><%= message.message %></label>
-        <label for = "dateposted"><%= message.dateposted %></label>
+        <input type = "hidden" id = "userMessageId" name = "id" value = <%= message.id %> />
+        <% if (user.member){%>
+          <label for = "dateposted"><%= message.dateposted %></label> 
+        <% } %>
+        <% if(user.admin) {%>
+          <button type ="submit">Delete this message!</button>
+        <% } %>
       </form>
-    <%}) %>  
+    <%}) %> 
+  </div>
+
+  <div class ="userMessage">
+    <form class= "userForm" action ="/postMessage" method ="POST">
+      <input type = "hidden" id = "id" name = "id" value = <%= user.id %> />
+      <label for = "messageTitle">Message title </label>
+      <input id = "messageTitle" name = "messageTitle" type ="text">
+      <label for = "userMessage"></label>
+      <textarea name = "userMessage" id = "userText" value ="Add a message!"> </textarea>
+      <button type ="submit">Submit!</button>
+    </form>
   </div>
 </body>
 </html>

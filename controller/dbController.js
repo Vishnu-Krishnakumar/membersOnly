@@ -4,7 +4,6 @@ const { body, validationResult } = require("express-validator");
 const bcrypt  = require("bcryptjs");
 
 async function signUp (req,res) {
-
     res.render("sign-up",{
         errors:[]
     });
@@ -20,11 +19,13 @@ async function register (req,res){
   }
   try{
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const adminPassword = (process.env.adminPassword === req.body.admin);
     const user ={
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       email: req.body.email,
       hashedPassword: hashedPassword,
+      admin: adminPassword,
     };
     db.createUser(user);
   
@@ -38,7 +39,6 @@ async function register (req,res){
 }
 
 async function logIn(req,res){
-  console.log(req.user);
   const check = await db.memberCheck(req.user.id);
   if(check){
   const messages = await db.getAllMessagesMember();  
@@ -57,16 +57,31 @@ async function logIn(req,res){
 }
 
 async function join(req,res){
-  console.log(req.body);
   if(req.body.secret === process.env.clubPassword){
     await db.becomeMember(req.user.id);
     logIn(req,res);
-  } 
+  }
+  else 
   logIn(req,res);
 }
+
+async function messagePost(req,res){
+
+  await db.addMessage(req.body);
+  logIn(req,res);
+}
+
+async function messageDelete(req,res){
+  console.log(req.user);
+  if(req.user.admin){await db.deleteMessage(req.body.id);}
+  logIn(req,res);
+}
+
 module.exports = {
     signUp,
     register,
     logIn,
     join,
+    messagePost,
+    messageDelete,
 }

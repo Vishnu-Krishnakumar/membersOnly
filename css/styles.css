@@ -20,3 +20,28 @@ body{
     padding: 10px;
     border-radius: 5px;
 }
+.userForm{
+    display:flex;
+    flex-direction: column;
+    border-color: cadetblue;
+    background-color: aqua;
+    margin: 30px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+.clubForm{
+    display:flex;
+    flex-direction: column;
+    border-color: cadetblue;
+    background-color: aqua;
+    margin: 30px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+textarea{
+    width: 400px;
+    height: 100px;
+}

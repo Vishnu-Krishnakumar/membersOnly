@@ -21,8 +21,9 @@ app.use(session({
 }));
 app.use(auth.passport.session());
 app.use(express.urlencoded({extended:true}));
-app.use("/",dbRouters);
 app.use(express.static('css'));
+app.use("/",dbRouters);
+
 const PORT =  process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Start of members only app! - listening on port ${PORT}!`);
