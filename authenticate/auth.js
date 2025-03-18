@@ -1,18 +1,23 @@
-const pool = require("./pool");
+const pool = require("../db/pool");
 const passport = require("passport");
+const session = require("express-session");
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt  = require("bcryptjs");
+require("dotenv").config();
+// passport.session({ secret: process.env.secret, resave: false, saveUninitialized: false ,session:true})
 
 passport.use(
     new LocalStrategy(async (username, password, done) => {
       try {
-        const { rows } = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+        
+        const {rows} = await pool.query("SELECT * FROM users WHERE email = $1", [username]);
         const user = rows[0];
-  
+        
         if (!user) {
           return done(null, false, { message: "Incorrect username" });
         }
-        if (user.password !== password) {
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
           return done(null, false, { message: "Incorrect password" });
         }
         return done(null, user);

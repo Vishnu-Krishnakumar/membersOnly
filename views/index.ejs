@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title></title>
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <h1>Hello someone! </h1>
-  
+  <h1>Hello <%= user.firstname + " " + user.lastname %>! </h1>
+  <form action  = "/join" method = "POST">
+    <label for = "secret">Secret passcode!</label>
+    <input id = "secret" name = "secret" placeholder="secret password!" type ="text"/>
+    <input type = "hidden" id = "id" name = "id" value = <%= user.id %> />
+    <button type = "submit">Join the club!</button>
+  </form>
+  <div class = "messages">
+    <% messages.map((message)=>{ %>
+      <form class = "message" action ="/delete" method ="POST">
+        <label for = "firstname"><%= message.firstname %></label>
+        <label for = "title"><%= message.title %></label>
+        <label for = "message"><%= message.message %></label>
+        <label for = "dateposted"><%= message.dateposted %></label>
+      </form>
+    <%}) %>  
+  </div>
 </body>
 </html>

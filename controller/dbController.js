@@ -4,6 +4,7 @@ const { body, validationResult } = require("express-validator");
 const bcrypt  = require("bcryptjs");
 
 async function signUp (req,res) {
+
     res.render("sign-up",{
         errors:[]
     });
@@ -11,7 +12,7 @@ async function signUp (req,res) {
 
 async function register (req,res){
   const errors = validationResult(req);
-  console.log(errors);
+
   if(!errors.isEmpty()){
     return res.status(400).render("sign-up",{
        errors:errors.array(),
@@ -37,10 +38,35 @@ async function register (req,res){
 }
 
 async function logIn(req,res){
-    res.render("index")
+  console.log(req.user);
+  const check = await db.memberCheck(req.user.id);
+  if(check){
+  const messages = await db.getAllMessagesMember();  
+  res.render("index",{
+      user: req.user,
+      messages: messages,
+    });
+  }
+  else{
+      const messages = await db.getAllMessages();  
+      res.render("index",{
+        user: req.user,
+        messages: messages,
+      });
+  }
+}
+
+async function join(req,res){
+  console.log(req.body);
+  if(req.body.secret === process.env.clubPassword){
+    await db.becomeMember(req.user.id);
+    logIn(req,res);
+  } 
+  logIn(req,res);
 }
 module.exports = {
     signUp,
     register,
     logIn,
+    join,
 }
