@@ -77,8 +77,9 @@ a:visited{
 label{
   
     overflow-wrap: break-word;
+    margin-bottom: auto;
 }
 
 #deleteButton{
-    margin-top: 40px;
+    margin-top: auto;
 }
