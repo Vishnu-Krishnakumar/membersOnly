@@ -18,13 +18,13 @@
   <div class = "messages">
     <% messages.map((message)=>{ %>
       <form class = "message" action ="/delete" method ="POST">
-        <% if (user.member){ %>
+        <% if (member){ %>
           <label for = "firstname"><%= message.firstname %></label>
         <% }%>
         <label for = "title"><%= message.title %></label>
         <label for = "message"><%= message.message %></label>
         <input type = "hidden" id = "userMessageId" name = "id" value = <%= message.id %> />
-        <% if (user.member){%>
+        <% if (member){%>
           <label for = "dateposted"><%= message.dateposted %></label> 
         <% } %>
         <% if(user.admin) {%>

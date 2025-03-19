@@ -45,6 +45,7 @@ async function logIn(req,res){
   res.render("index",{
       user: req.user,
       messages: messages,
+      member: true,
     });
   }
   else{
@@ -52,6 +53,7 @@ async function logIn(req,res){
       res.render("index",{
         user: req.user,
         messages: messages,
+        member: false,
       });
   }
 }
@@ -72,7 +74,6 @@ async function messagePost(req,res){
 }
 
 async function messageDelete(req,res){
-  console.log(req.user);
   if(req.user.admin){await db.deleteMessage(req.body.id);}
   logIn(req,res);
 }
