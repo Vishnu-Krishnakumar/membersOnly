@@ -8,13 +8,15 @@
 </head>
 <body>
   <h1>Hello <%= user.firstname + " " + user.lastname %>! </h1>
+  <a href ="/log-out">Want to log out? Click here!</a>
+  <% if (!member){ %>
   <form class = "clubForm"action ="/join" method = "POST">
     <label for = "secret">Secret passcode!</label>
     <input id = "secret" name = "secret" placeholder="secret password!" type ="text"/>
     <input type = "hidden" id = "id" name = "id" value = <%= user.id %> />
     <button type = "submit">Join the club!</button>
   </form>
-
+  <%}) %> 
   <div class = "messages">
     <% messages.map((message)=>{ %>
       <form class = "message" action ="/delete" method ="POST">
