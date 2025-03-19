@@ -16,7 +16,7 @@
     <input type = "hidden" id = "id" name = "id" value = <%= user.id %> />
     <button type = "submit">Join the club!</button>
   </form>
-  <%}) %> 
+  <%} %> 
   <div class = "messages">
     <% messages.map((message)=>{ %>
       <form class = "message" action ="/delete" method ="POST">
