@@ -64,3 +64,9 @@ textarea{
     width: 400px;
     height: 100px;
 }
+a:link{
+    color:crimson;
+}
+a:visited{
+    color:crimson
+}
