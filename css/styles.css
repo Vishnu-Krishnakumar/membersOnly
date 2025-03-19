@@ -19,6 +19,8 @@ body{
     margin: 30px;
     padding: 10px;
     border-radius: 5px;
+    max-width: 480px;
+    overflow-wrap: break-word;
 }
 .userForm{
     display:flex;
@@ -70,4 +72,9 @@ a:link{
 }
 a:visited{
     color:crimson
+}
+
+label{
+  
+    overflow-wrap: break-word;
 }
