@@ -30,7 +30,7 @@
           <label for = "dateposted"><%= message.dateposted %></label> 
         <% } %>
         <% if(user.admin) {%>
-          <button type ="submit">Delete this message!</button>
+          <button id ="deleteButton" type ="submit">Delete this message!</button>
         <% } %>
       </form>
     <%}) %> 

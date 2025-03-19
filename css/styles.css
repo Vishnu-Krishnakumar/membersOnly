@@ -78,3 +78,7 @@ label{
   
     overflow-wrap: break-word;
 }
+
+#deleteButton{
+    margin-top: 40px;
+}
