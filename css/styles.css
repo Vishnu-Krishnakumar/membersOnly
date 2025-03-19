@@ -40,7 +40,26 @@ body{
     border-radius: 5px;
     text-align: center;
 }
-
+.signUp{
+    display:flex;
+    flex-direction: column;
+    border-color: cadetblue;
+    background-color: aqua;
+    margin: 30px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+.logIn{
+    display:flex;
+    flex-direction: column;
+    border-color: cadetblue;
+    background-color: aqua;
+    margin: 30px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
 textarea{
     width: 400px;
     height: 100px;
